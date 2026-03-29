@@ -1,0 +1,6 @@
+.validationError{
+    color: #d32f2f;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-left: 8px;
+}
