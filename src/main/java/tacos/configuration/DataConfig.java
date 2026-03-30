@@ -8,12 +8,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import tacos.taco.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import tacos.data.IngredientRepository;
+import tacos.data.UserRepository;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import tacos.taco.Ingredient;
 import tacos.taco.Ingredient.Type;
 
@@ -35,13 +39,23 @@ public class DataConfig {
             repo.save(new Ingredient("SRCR", "Sour Cream", Type.SAUCE));
         };
     }
+     
+    /*creating two custom users to log in to the application */
+    // @Bean
+    // public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder){
+    //     List<UserDetails> userList=new ArrayList<>();
+    //     userList.add(new User("karti", passwordEncoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
+    //     userList.add(new User("kirti", passwordEncoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("USER_ROLE"))));
+    //     return new InMemoryUserDetailsManager(userList);
+    // }
+
     
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder){
-        List<UserDetails> userList=new ArrayList<>();
-        userList.add(new User("karti", passwordEncoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-        userList.add(new User("kirti", passwordEncoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("USER_ROLE"))));
-        return new InMemoryUserDetailsManager(userList);
+    public UserDetailsService userDetailsService(UserRepository userRepo){
+        return username -> {
+            User user=userRepo.findByUsername(username);
+            if(user != null) return user;
+            throw new UsernameNotFoundException("User '"+username+"' not found");
+        };
     }
-
 }
