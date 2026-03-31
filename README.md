@@ -37,7 +37,7 @@ Core concepts for building Spring applications.
 - [x] Chapter 2 – Developing Web Applications  
 - [x] Chapter 3 – Working with Data  
 - [x] Chapter 4 – Working with Non-Relational Data  
-- [ ] Chapter 5 – Securing Spring  
+- [x] Chapter 5 – Securing Spring  
 - [ ] Chapter 6 – Working with Configuration Properties  
 
 ---
