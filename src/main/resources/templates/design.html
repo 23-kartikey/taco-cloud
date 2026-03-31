@@ -66,6 +66,10 @@
                         th:errors="*{ingredients}">Invalid ingredients</span><br/>
                     <button>Submit Your Taco</button>
                 </div>
+                <div>
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                </div>
+            
         </form>
     </body>
 
