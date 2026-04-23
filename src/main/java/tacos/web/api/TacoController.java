@@ -1,11 +1,14 @@
 package tacos.web.api;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import tacos.data.TacoRepository;
 import tacos.taco.Taco;
@@ -27,6 +30,11 @@ public class TacoController{
             12, 
             Sort.by("createdAt").descending());
         return tacoRepo.findAll(page).getContent();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Taco> tacoById(@PathVariable long id){
+        return tacoRepo.findById(id);
     }
 
 
