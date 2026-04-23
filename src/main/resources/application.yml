@@ -1,3 +1,5 @@
 spring:
     application:
         name: taco-cloud
+server:
+    port: 8081
